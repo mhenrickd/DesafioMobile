@@ -12,17 +12,28 @@ struct ContentView: View {
     
     init() {
         _viewModel = StateObject(wrappedValue: ViewModel())
-        viewModel.loadNewsFeed()
     }
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            makeFeedView()
+        }.onAppear {
+            viewModel.fetchHomeNews()
         }
-        .padding()
+    }
+    
+    @ViewBuilder
+    func makeFeedView() -> some View {
+        ScrollView {
+            if let articles = viewModel.articles {
+                ForEach(articles, id: \.self) { article in
+                    FeedView(chapeu: article.chapeu?.label ?? "",
+                             title: article.title ?? "",
+                             imageUrl: article.image?.sizes?.L?.url ?? "",
+                             description: article.summary ?? "")
+                }
+            }
+        }
     }
 }
 

@@ -9,33 +9,21 @@ import Foundation
 import Combine
 
 protocol ViewModelProtocol {
-    func loadHomeNews()
+    func fetchHomeNews()
 }
 
 class ViewModel: ObservableObject {
-    @Published var homeFeed: APIResponseModel? = nil
-    @Published var error: String? = nil
+    @Published var articles: [Article]?
     
-    private var cancellables = Set<AnyCancellable>()
     private let networkManager: NetworkManagerProtocol
     
     init(networkManager: NetworkManagerProtocol = DIContainer.shared.makeNetworkManager()) {
         self.networkManager = networkManager
     }
     
-    func loadNewsFeed() {
-        NetworkManager.shared.fetchHomeNews()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        self.error = error.localizedDescription
-                }
-            }, receiveValue: { homeFeed in
-                self.homeFeed = homeFeed
-            })
-            .store(in: &cancellables)
+    func fetchHomeNews() {
+        networkManager.fetchFeedNews { (success, articles) in
+            self.articles = articles
+        }
     }
 }

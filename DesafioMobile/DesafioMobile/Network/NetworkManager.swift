@@ -5,26 +5,31 @@
 //  Created by Matheus Henrick  Dias on 26/08/25.
 //
 import Foundation
-import Combine
+import Alamofire
 
 protocol NetworkManagerProtocol {
-    func fetchHomeNews() -> AnyPublisher<APIResponseModel, Error>
+    func fetchFeedNews(completion: @escaping(Bool, [Article]?) -> Void)
 }
 
 class NetworkManager: NetworkManagerProtocol {
     static let shared = NetworkManager()
-    var session: URLSession
-    
-    init(session: URLSession = .shared) {
-        self.session = session
-    }
-    
-    func fetchHomeNews() -> AnyPublisher<APIResponseModel, any Error> {
+    let endpoint = APIEndpoints.newsFeed
+        
+    public func fetchFeedNews(completion: @escaping(Bool, [Article]?) -> Void) {
         let endpoint = APIEndpoints.newsFeed
         
-        return session.dataTaskPublisher(for: endpoint.url)
-            .map(\.data)
-            .decode(type: APIResponseModel.self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
+        AF.request(endpoint.url, method: .get)
+            .validate()
+            .responseDecodable(of: NewsResponse.self) { response in
+                switch response.result {
+                    case .success(let newsResponse):
+                        let articles = newsResponse.feed?.falkor?.items?.compactMap { $0.content }
+                        completion(true, articles)
+                        
+                    case .failure(let error):
+                        print("Error: \(error)")
+                        completion(false, nil)
+                }
+            }
     }
 }
