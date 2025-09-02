@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1425218E2E679D7B001A0F02 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 1425218D2E679D7B001A0F02 /* Swifter */; };
+		142521992E67AD37001A0F02 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 142521982E67AD37001A0F02 /* Swifter */; };
 		144202092E668F3F0086330B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 144202082E668F3F0086330B /* Alamofire */; };
 		144202122E66A20E0086330B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 144202112E66A20E0086330B /* Kingfisher */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1425218E2E679D7B001A0F02 /* Swifter in Frameworks */,
 				144202122E66A20E0086330B /* Kingfisher in Frameworks */,
 				144202092E668F3F0086330B /* Alamofire in Frameworks */,
 			);
@@ -66,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				142521992E67AD37001A0F02 /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +125,7 @@
 			packageProductDependencies = (
 				144202082E668F3F0086330B /* Alamofire */,
 				144202112E66A20E0086330B /* Kingfisher */,
+				1425218D2E679D7B001A0F02 /* Swifter */,
 			);
 			productName = DesafioMobile;
 			productReference = 149538182E5E464F00211A1C /* DesafioMobile.app */;
@@ -144,6 +149,7 @@
 			);
 			name = DesafioMobileTests;
 			packageProductDependencies = (
+				142521982E67AD37001A0F02 /* Swifter */,
 			);
 			productName = DesafioMobileTests;
 			productReference = 149538282E5E465000211A1C /* DesafioMobileTests.xctest */;
@@ -207,6 +213,7 @@
 			packageReferences = (
 				144202072E668F3F0086330B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				144202102E66A20E0086330B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				1425218C2E679D7B001A0F02 /* XCRemoteSwiftPackageReference "swifter" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 149538192E5E464F00211A1C /* Products */;
@@ -573,6 +580,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1425218C2E679D7B001A0F02 /* XCRemoteSwiftPackageReference "swifter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/httpswift/swifter";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
 		144202072E668F3F0086330B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -592,6 +607,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1425218D2E679D7B001A0F02 /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1425218C2E679D7B001A0F02 /* XCRemoteSwiftPackageReference "swifter" */;
+			productName = Swifter;
+		};
+		142521982E67AD37001A0F02 /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1425218C2E679D7B001A0F02 /* XCRemoteSwiftPackageReference "swifter" */;
+			productName = Swifter;
+		};
 		144202082E668F3F0086330B /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 144202072E668F3F0086330B /* XCRemoteSwiftPackageReference "Alamofire" */;

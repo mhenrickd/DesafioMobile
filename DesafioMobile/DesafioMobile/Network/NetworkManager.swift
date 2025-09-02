@@ -13,12 +13,10 @@ protocol NetworkManagerProtocol {
 
 class NetworkManager: NetworkManagerProtocol {
     static let shared = NetworkManager()
-    let endpoint = APIEndpoints.newsFeed
+    var endpoint: URL = APIEndpoints.newsFeed.url
         
     public func fetchFeedNews(completion: @escaping(Bool, [Article]?) -> Void) {
-        let endpoint = APIEndpoints.newsFeed
-        
-        AF.request(endpoint.url, method: .get)
+        AF.request(endpoint, method: .get)
             .validate()
             .responseDecodable(of: NewsResponse.self) { response in
                 switch response.result {
