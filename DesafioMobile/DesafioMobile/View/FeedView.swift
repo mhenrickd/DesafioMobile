@@ -9,16 +9,20 @@ import SwiftUI
 import Kingfisher
 
 struct FeedView: View {
+    @State private var showWebView = false
+    
     private let chapeu: String
     private let title: String
     private let imageUrl: String
     private let description: String
+    private let articleUrl: String
     
-    init(chapeu: String, title: String, imageUrl: String, description: String) {
+    init(chapeu: String, title: String, imageUrl: String, description: String, articleUrl: String) {
         self.chapeu = chapeu
         self.title = title
         self.imageUrl = imageUrl
         self.description = description
+        self.articleUrl = articleUrl
     }
     
     var body: some View {
@@ -37,14 +41,19 @@ struct FeedView: View {
             
             KFImage(URL(string: imageUrl))
                 .placeholder { ProgressView() }
-                .resizing(referenceSize: CGSize(width: 130, height: 150))
-                .scaledToFit()
+                .resizing(referenceSize: CGSize(width: 380, height: 150))
                 .cornerRadius(5)
             
             Divider()
             
             Text(description)
                 .bold()
+        }
+        .sheet(isPresented: $showWebView) {
+            WebView(url: URL(string: articleUrl))
+        }
+        .onTapGesture {
+            showWebView = !articleUrl.isEmpty
         }
     }
 }

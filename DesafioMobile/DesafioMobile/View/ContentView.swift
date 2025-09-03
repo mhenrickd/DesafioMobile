@@ -20,6 +20,7 @@ struct ContentView: View {
         }.onAppear {
             viewModel.fetchHomeNews()
         }
+        .padding(.top)
     }
     
     @ViewBuilder
@@ -30,10 +31,14 @@ struct ContentView: View {
                     FeedView(chapeu: article.chapeu?.label ?? "",
                              title: article.title ?? "",
                              imageUrl: article.image?.sizes?.L?.url ?? "",
-                             description: article.summary ?? "")
+                             description: article.summary ?? "",
+                             articleUrl: article.url ?? "")
+                    .padding(.all, 16)
+                    .background(Color.white)
                 }
             }
         }
+        .background(Color.gray)
     }
 }
 
