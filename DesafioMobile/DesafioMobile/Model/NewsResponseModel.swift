@@ -1,5 +1,5 @@
 //
-//  NewsResponse.swift
+//  NewsResponseModel.swift
 //  DesafioMobile
 //
 //  Created by Matheus Henrick  Dias on 02/09/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsResponse: Codable {
+struct NewsResponseModel: Codable {
     let feed: Feed?
 }
 
@@ -21,6 +21,7 @@ struct Falkor: Codable {
 
 struct FeedItem: Codable {
     let content: Article?
+    let metadata: String?
 }
 
 struct Article: Codable, Equatable ,Hashable {

@@ -13,12 +13,12 @@ import Swifter
 class NetworkManagerTests: XCTestCase {
     
     private var server: HttpServer = HttpServer()
-    var networkManager: NetworkManager!
+    var networkManager: NetworkManagerRepository!
     
     override func setUp() {
         super.setUp()
         setupServer()
-        networkManager = NetworkManager.shared
+        networkManager = NetworkManagerRepository.shared
     }
     
     override func tearDown() {

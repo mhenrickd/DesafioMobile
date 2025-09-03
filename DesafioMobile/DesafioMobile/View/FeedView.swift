@@ -11,18 +11,10 @@ import Kingfisher
 struct FeedView: View {
     @State private var showWebView = false
     
-    private let chapeu: String
-    private let title: String
-    private let imageUrl: String
-    private let description: String
-    private let articleUrl: String
+    private let article: ArticleModel
     
-    init(chapeu: String, title: String, imageUrl: String, description: String, articleUrl: String) {
-        self.chapeu = chapeu
-        self.title = title
-        self.imageUrl = imageUrl
-        self.description = description
-        self.articleUrl = articleUrl
+    init(article: ArticleModel) {
+        self.article = article
     }
     
     var body: some View {
@@ -32,28 +24,36 @@ struct FeedView: View {
     @ViewBuilder
     private var contentView: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(chapeu)
+            Text(article.chapeu)
+                .bold()
+                .font(.subheadline)
+            
+            Text(article.title)
+                .bold()
+                .foregroundStyle(.red)
+                .font(.headline)
+            
+            Text(article.description)
+                .font(.subheadline)
                 .foregroundStyle(.gray)
-                .bold()
             
-            Text(title)
-                .bold()
-            
-            KFImage(URL(string: imageUrl))
+            KFImage(URL(string: article.imageUrl))
                 .placeholder { ProgressView() }
-                .resizing(referenceSize: CGSize(width: 380, height: 150))
-                .cornerRadius(5)
+                .resizing(referenceSize: CGSize(width: 380, height: 200))
+                .cornerRadius(10)
             
             Divider()
             
-            Text(description)
-                .bold()
+            Text(article.metadata)
+                .font(.footnote)
+                .foregroundStyle(.gray)
+            
         }
         .sheet(isPresented: $showWebView) {
-            WebView(url: URL(string: articleUrl))
+            WebView(url: URL(string: article.articleUrl))
         }
         .onTapGesture {
-            showWebView = !articleUrl.isEmpty
+            showWebView = !article.articleUrl.isEmpty
         }
     }
 }

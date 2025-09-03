@@ -12,7 +12,7 @@ class DIContainer {
 
     private init() {}
     
-    func makeNetworkManager() -> NetworkManagerProtocol {
-        return NetworkManager()
+    func makeNetworkManager() -> NetworkManagerRepositoryProtocol {
+        return NetworkManagerRepository()
     }
 }

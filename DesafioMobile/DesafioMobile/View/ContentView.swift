@@ -26,16 +26,10 @@ struct ContentView: View {
     @ViewBuilder
     func makeFeedView() -> some View {
         ScrollView {
-            if let articles = viewModel.articles {
-                ForEach(articles, id: \.self) { article in
-                    FeedView(chapeu: article.chapeu?.label ?? "",
-                             title: article.title ?? "",
-                             imageUrl: article.image?.sizes?.L?.url ?? "",
-                             description: article.summary ?? "",
-                             articleUrl: article.url ?? "")
+            ForEach(viewModel.articles, id: \.self) { article in
+                FeedView(article: article)
                     .padding(.all, 16)
                     .background(Color.white)
-                }
             }
         }
         .background(Color.gray)

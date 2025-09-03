@@ -12,17 +12,19 @@ protocol ViewModelProtocol {
 }
 
 class ViewModel: ObservableObject {
-    @Published var articles: [Article]?
+    @Published var articles: [ArticleModel] = []
     
-    private let networkManager: NetworkManagerProtocol
+    private let articlesUseCase: ArticlesUseCaseProtocol
     
-    init(networkManager: NetworkManagerProtocol = DIContainer.shared.makeNetworkManager()) {
-        self.networkManager = networkManager
+    init(articlesUseCase: ArticlesUseCase = ArticlesUseCase()) {
+        self.articlesUseCase = articlesUseCase
     }
     
     func fetchHomeNews() {
-        networkManager.fetchFeedNews { (success, articles) in
-            self.articles = articles
+        articlesUseCase.getArticles { [weak self] result in
+            guard let fetchedArticles = result else { return }
+            
+            self?.articles = fetchedArticles
         }
     }
 }
