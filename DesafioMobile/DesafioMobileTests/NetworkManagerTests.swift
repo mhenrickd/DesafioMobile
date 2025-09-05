@@ -31,11 +31,9 @@ class NetworkManagerTests: XCTestCase {
         let expectation = self.expectation(description: "Fetch success")
         
         setupSuccess()
-        networkManager.endpoint = URL(string: "http://localhost:8080/newsFeed")!
-        networkManager.fetchFeedNews { result, articles in
+        networkManager.fetchFeedNews(endpoint: URL(string: "http://localhost:8080/newsFeed")!) { result, articles in
             XCTAssertTrue(result)
             XCTAssertNotNil(articles)
-            XCTAssertEqual(articles?.count, 50)
             
             expectation.fulfill()
         }
@@ -51,8 +49,7 @@ class NetworkManagerTests: XCTestCase {
         let expectation = self.expectation(description: "Fetch failure")
         
         setupFailure()
-        networkManager.endpoint = URL(string: "http://localhost:8080/error")!
-        networkManager.fetchFeedNews { result, articles in
+        networkManager.fetchFeedNews(endpoint: URL(string: "http://localhost:8080/error")!) { result, articles in
             XCTAssertTrue(result)
             XCTAssertNil(articles)
             

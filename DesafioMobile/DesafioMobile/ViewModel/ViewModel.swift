@@ -9,10 +9,12 @@ import Foundation
 
 protocol ViewModelProtocol {
     func fetchHomeNews()
+    func fetchAgronegocioNews()
 }
 
 class ViewModel: ObservableObject {
     @Published var articles: [ArticleModel] = []
+    @Published var agronegocio: [ArticleModel] = []
     
     private let articlesUseCase: ArticlesUseCaseProtocol
     
@@ -25,6 +27,14 @@ class ViewModel: ObservableObject {
             guard let fetchedArticles = result else { return }
             
             self?.articles = fetchedArticles
+        }
+    }
+    
+    func fetchAgronegocioNews() {
+        articlesUseCase.getAgronegocioArticles { [weak self] result in
+            guard let fetchedArticles = result else { return }
+            
+            self?.agronegocio = fetchedArticles
         }
     }
 }
